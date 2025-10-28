@@ -129,6 +129,7 @@ export class BusinessTripRegistrationLogic extends CommonLogic{
         const DATE_TO_CTRL = "tripEndDate";                    // DateTimePicker "Дата по"
         const TRIP_BASIS_TEXT_CTRL = "tripReasonDescription"; // TextArea "Основание"
         const CREATED_DATE_CTRL = "regDate";                 // DateTimePicker "Дата создания"
+        const TRIP_CITY_CTRL = "destinationCity";       // DirectoryDesignerRow "Город назначения"
 
         const nameCtrl = layout.controls.tryGet<TextBox>(APPLICATION_NAME_CTRL);
         const cardTitle =this.formatText(nameCtrl.getParamValue?.("value"));
@@ -155,11 +156,23 @@ export class BusinessTripRegistrationLogic extends CommonLogic{
                 basis = this.formatText(basisPlain);
         }
 
+        const cityCtrl = layout.controls.tryGet<DirectoryDesignerRow>(TRIP_CITY_CTRL);
+        let cityText: string | null = null;
+
+        if (cityCtrl) {
+            const cityValue = cityCtrl.getParamValue?.("value");
+            if (cityValue) {
+                cityText = cityValue.name;
+            }
+        }
+        cityText = this.formatText(cityText);
+
         const lines = [
             `Название карточки: ${nameCtrl ? cardTitle: "Контрол не найден"}`,
             `Дата создания: ${createdCtrl ? this.formatDate(createdAt) : "Контрол не найден"}`,
             `Дата с: ${fromCtrl ? this.formatDate(fromDate) : "Контрол не найден"}`,
             `Дата по: ${toCtrl ? this.formatDate(toDate) : "Контрол не найден"}`,
+            `Город назначения: ${cityCtrl ? cityText: "Контрол не найден"}`,
             `Основание для поездки: ${basis ?? "Контрол не найден"}`
         ].join("\n");
 
