@@ -1,0 +1,6 @@
+node_modules
+src/EventHandlers/ApplicationPurchaseEquipmentHandlers.ts
+src/Logic/ApplicationPurchaseEquipmentLogic.ts
+*.log
+**/cache
+src/Feature1
